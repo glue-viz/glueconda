@@ -17,3 +17,4 @@ before_install:
 
 script:
   - constructor .
+  - aws s3 cp glueconda-*.pkg s3://www.glueviz.org/glueconda/
