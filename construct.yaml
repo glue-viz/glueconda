@@ -1,0 +1,22 @@
+name: glueconda
+version: 0.1
+
+install_in_dependency_order: True
+
+channels:
+ - http://conda.anaconda.org/glueviz
+ - http://repo.continuum.io/pkgs/free
+
+specs:
+  - python 3.6*
+  - conda
+  - nomkl [not win]
+  - glueviz
+  - console_shortcut  [win]
+  - menuinst  [win]
+  - scipy 1.0*
+
+exclude:
+  - libgfortran  [linux]
+
+#license_file: LICENSE
