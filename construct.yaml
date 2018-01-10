@@ -17,5 +17,3 @@ specs:
 
 exclude:
   - libgfortran  [linux]
-
-#license_file: LICENSE

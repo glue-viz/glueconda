@@ -1,0 +1,19 @@
+language: c
+
+sudo: false
+
+os:
+  - osx
+
+env:
+  global:
+    - PIP_DEPENDENCIES='awscli https://github.com/conda/constructor/archive/master.zip'
+    - PYTHON_VERSION=3.6
+
+before_install:
+  - git clone git://github.com/astropy/ci-helpers.git
+  - source ci-helpers/travis/setup_conda.sh
+  - echo "installer_type: pkg" >> construct.yaml
+
+script:
+  - constructor .
