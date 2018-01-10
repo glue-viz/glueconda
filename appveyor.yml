@@ -31,7 +31,6 @@ install:
 
     # Set path again, need to find a way to avoid doing this again
     - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
-    - "activate test"
 
     # Constructor has a number of dependencies that are only available
     # in conda, so we install constructor with conda then remove it
