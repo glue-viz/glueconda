@@ -12,10 +12,7 @@ environment:
                         # to the matrix section.
 
   matrix:
-      - TARGET_ARCH: x86
-        PYTHON_VERSION: "3.6"
-      - TARGET_ARCH: x64
-        PYTHON_VERSION: "3.6"
+      - PYTHON_VERSION: "3.6"
 
 matrix:
     fast_finish: true
@@ -47,4 +44,5 @@ build: false
 
 test_script:
   - "%CMD_IN_ENV% constructor ."
-  
+  - "%CMD_IN_ENV% aws s3 cp glueconda-*-Windows-x86_64.exe s3://www.glueviz.org/glueconda/"
+  - "%CMD_IN_ENV% aws s3 cp glueconda-*-Windows-x86_64.exe s3://www.glueviz.org/glueconda/glueconda-latest-Windows-x86_64.exe"
