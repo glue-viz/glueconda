@@ -44,4 +44,4 @@ build: false
 
 test_script:
   - "%CMD_IN_ENV% constructor ."
-  - "%CMD_IN_ENV% aws s3 cp glueconda-latest-Windows-x86_64.exe s3://www.glueviz.org/glueconda/"
+  - "%CMD_IN_ENV% aws s3 cp glueconda-stable-Windows-x86_64.exe s3://www.glueviz.org/glueconda/"
