@@ -1,5 +1,5 @@
 name: glueconda
-version: 0.1
+version: latest
 
 install_in_dependency_order: True
 
