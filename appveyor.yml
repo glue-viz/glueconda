@@ -10,8 +10,6 @@ environment:
       PYTHON_ARCH: "64" # needs to be set for CMD_IN_ENV to succeed. If a mix
                         # of 32 bit and 64 bit builds are needed, move this
                         # to the matrix section.
-      CONDA_DEPENDENCIES: "menuinst console_shortcut"
-      PIP_DEPENDENCIES: "https://github.com/conda/constructor/archive/master.zip awscli"
 
   matrix:
       - TARGET_ARCH: x86
@@ -34,6 +32,16 @@ install:
     # Set path again, need to find a way to avoid doing this again
     - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
     - "activate test"
+
+    # Constructor has a number of dependencies that are only available
+    # in conda, so we install constructor with conda then remove it
+    # and install the latest developer version with pip, but this will
+    # keep the dependencies in place
+    - conda install constructor
+    - conda remove constructor
+    - pip install https://github.com/conda/constructor/archive/master.zip
+
+    - pip install awscli
 
 # Not a .NET project, we build SunPy in the install step instead
 build: false
