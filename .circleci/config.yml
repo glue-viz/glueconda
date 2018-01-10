@@ -11,6 +11,7 @@ jobs:
           command: |
             conda config --set always_yes yes --set changeps1 no
             pip install https://github.com/conda/constructor/archive/master.zip
+            pip install awscli
       - run:
           name: Build 32-bit Linux distribution
           command: constructor --platform=linux-32 .
