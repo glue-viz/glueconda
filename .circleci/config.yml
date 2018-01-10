@@ -10,7 +10,7 @@ jobs:
           name: Conda setup
           command: |
             conda config --set always_yes yes --set changeps1 no
-            conda install constructor
+            pip install https://github.com/conda/constructor/archive/master.zip
       - run:
           name: Build 32-bit Linux distribution
           command: constructor --platform=linux-32 .
