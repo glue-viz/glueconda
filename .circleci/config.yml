@@ -15,15 +15,15 @@ jobs:
       - run:
           name: Build 32-bit Linux distribution
           command: constructor --platform=linux-32 .
-      # - run:
-      #     name: Build 64-bit Linux distribution
-      #     command: constructor --platform=linux-64 .
-      # - run:
-      #     name: Build 32-bit MacOS X distribution
-      #     command: constructor --platform=osx-32 .
-      # - run:
-      #     name: Build 64-bit MacOS X distribution
-      #     command: constructor --platform=osx-64 .
+      - run:
+          name: Build 64-bit Linux distribution
+          command: constructor --platform=linux-64 .
+      - run:
+          name: Build 32-bit MacOS X distribution
+          command: constructor --platform=osx-32 .
+      - run:
+          name: Build 64-bit MacOS X distribution
+          command: constructor --platform=osx-64 .
       - run:
           name: Deploy to S3
           command: aws s3 cp *.sh s3://www.glueviz.org/glueconda/
