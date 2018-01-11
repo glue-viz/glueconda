@@ -15,6 +15,7 @@ before_install:
   - ./prepare_pkg.sh
 
 install:
+  - source activate root
   - conda install constructor
   - conda remove constructor
   - pip install https://github.com/conda/constructor/archive/master.zip
