@@ -24,6 +24,6 @@ jobs:
       - run:
           name: Deploy to S3
           command: |
-              aws s3 cp glueconda-stable-Linux-x86.sh s3://www.glueviz.org/glueconda/
-              aws s3 cp glueconda-stable-Linux-x86_64.sh s3://www.glueviz.org/glueconda/
-              aws s3 cp glueconda-stable-MacOSX-x86_64.sh s3://www.glueviz.org/glueconda/
+              aws s3 cp --content-type application/x-sh glueconda-stable-Linux-x86.sh s3://www.glueviz.org/glueconda/
+              aws s3 cp --content-type application/x-sh glueconda-stable-Linux-x86_64.sh s3://www.glueviz.org/glueconda/
+              aws s3 cp --content-type application/x-sh glueconda-stable-MacOSX-x86_64.sh s3://www.glueviz.org/glueconda/

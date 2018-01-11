@@ -24,4 +24,4 @@ install:
 
 script:
   - constructor .
-  - aws s3 cp glueconda-*.pkg s3://www.glueviz.org/glueconda/
+  - aws s3 cp --content-type application/vnd.apple.installer+xml glueconda-*.pkg s3://www.glueviz.org/glueconda/
