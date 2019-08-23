@@ -12,9 +12,9 @@ jobs:
             conda config --set always_yes yes --set changeps1 no
             conda install constructor conda=4.6
             pip install awscli
-      - run:
-          name: Build 32-bit Linux distribution
-          command: constructor --platform=linux-32 .
+      # - run:
+      #     name: Build 32-bit Linux distribution
+      #     command: constructor --platform=linux-32 .
       - run:
           name: Build 64-bit Linux distribution
           command: constructor --platform=linux-64 .
