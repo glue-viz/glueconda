@@ -15,5 +15,5 @@ specs:
   - console_shortcut  [win]
   - menuinst  [win]
 
-exclude:
-  - libgfortran  [linux]
+# exclude:
+#   - libgfortran  [linux]
