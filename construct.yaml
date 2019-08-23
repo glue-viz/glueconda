@@ -14,6 +14,3 @@ specs:
   - glueviz >=0.15.2
   - console_shortcut  [win]
   - menuinst  [win]
-
-# exclude:
-#   - libgfortran  [linux]

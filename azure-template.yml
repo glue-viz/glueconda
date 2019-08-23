@@ -1,0 +1,40 @@
+jobs:
+- ${{ each env in parameters.envs }}:
+  - ${{ each pair in env }}:
+
+    - job: ${{ pair.key }}_${{ pair.value }}
+      pool:
+        ${{ if eq(pair.key, 'macosx') }}:
+          vmImage: macOS 10.13
+        ${{ if eq(pair.key, 'linux') }}:
+          vmImage: Ubuntu 16.04
+        ${{ if eq(pair.key, 'windows') }}:
+          vmImage: vs2017-win2016
+
+      steps:
+
+      - ${{ if eq(pair.key, 'macosx') }}:
+
+        - bash: echo "##vso[task.prependpath]$CONDA/bin"
+          displayName: Add conda to PATH
+
+        # On Hosted macOS, the agent user doesn't have ownership of Miniconda's installation directory/
+        # We need to take ownership if we want to update conda or install packages globally
+        - bash: sudo chown -R $USER $CONDA
+          displayName: Take ownership of conda installation
+
+      - ${{ if eq(pair.key, 'linux') }}:
+
+        - bash: echo "##vso[task.prependpath]$CONDA/bin"
+          displayName: Add conda to PATH
+
+      - ${{ if eq(pair.key, 'windows') }}:
+
+        - powershell: Write-Host "##vso[task.prependpath]$env:CONDA\Scripts"
+          displayName: Add conda to PATH
+
+      - bash: conda install constructor=3
+        displayName: Installing constructor v3
+
+      - bash: construtor .
+        displayName: Running constructor

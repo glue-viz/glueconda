@@ -1,0 +1,9 @@
+jobs:
+
+- template: azure-template.yml
+  parameters:
+    envs:
+    - linux: sh
+    - macosx: sh
+    - macosx: pkg
+    - windows: exe
