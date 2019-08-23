@@ -53,6 +53,10 @@ jobs:
 
       - ${{ if eq(pair.key, 'macosx') }}:
 
+        # There seems to be a race condition that means sometimes the cache
+        # directory is not set up in time or is not set up with the correct
+        # dependencies, so we create it here in advance and give it the correct
+        # permissions
         - bash: |
             mkdir -p ${{ pair.key }}_${{ pair.value }}/osx-64
             sudo chown -R $USER ${{ pair.key }}_${{ pair.value }}
@@ -60,3 +64,38 @@ jobs:
 
       - bash: constructor . --cache-dir=${{ pair.key }}_${{ pair.value }}
         displayName: Running constructor
+
+      - bash: pip install awscli
+        displayName: Install awscli
+
+      - ${{ if and(eq(pair.key, 'macosx'),eq(pair.value, 'pkg')) }}:
+
+        - bash: aws s3 cp --content-type application/vnd.apple.installer+xml glueconda-stable-MacOSX-x86_64.pkg s3://www.glueviz.org/glueconda/
+          displayName: Upload to S3
+          env:
+            AWS_ACCESS_KEY_ID: $(AWS_ACCESS_KEY_ID)
+            AWS_SECRET_ACCESS_KEY: $(AWS_SECRET_ACCESS_KEY)
+
+      - ${{ if and(eq(pair.key, 'macosx'),eq(pair.value, 'sh')) }}:
+
+        - bash: aws s3 cp --content-type application/x-sh glueconda-stable-MacOSX-x86_64.sh s3://www.glueviz.org/glueconda/
+          displayName: Upload to S3
+          env:
+            AWS_ACCESS_KEY_ID: $(AWS_ACCESS_KEY_ID)
+            AWS_SECRET_ACCESS_KEY: $(AWS_SECRET_ACCESS_KEY)
+
+      - ${{ if eq(pair.key, 'linux') }}:
+
+        - bash: aws s3 cp --content-type application/x-sh glueconda-stable-Linux-x86_64.sh s3://www.glueviz.org/glueconda/
+          displayName: Upload to S3
+          env:
+            AWS_ACCESS_KEY_ID: $(AWS_ACCESS_KEY_ID)
+            AWS_SECRET_ACCESS_KEY: $(AWS_SECRET_ACCESS_KEY)
+
+      - ${{ if eq(pair.key, 'windows') }}:
+
+        - bash: aws s3 cp --content-type application/octet-stream glueconda-stable-Windows-x86_64.exe s3://www.glueviz.org/glueconda/
+          displayName: Upload to S3
+          env:
+            AWS_ACCESS_KEY_ID: $(AWS_ACCESS_KEY_ID)
+            AWS_SECRET_ACCESS_KEY: $(AWS_SECRET_ACCESS_KEY)
