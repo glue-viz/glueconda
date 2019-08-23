@@ -53,8 +53,10 @@ jobs:
 
       - ${{ if eq(pair.key, 'macosx') }}:
 
-        - bash: rm -r $HOME/.conda
-          displayName: Clean conda configuration
+        - bash: |
+            mkdir -p ${{ pair.key }}_${{ pair.value }}/osx-64
+            sudo chown -R $USER ${{ pair.key }}_${{ pair.value }}
+          displayName: Set up cache
 
       - bash: constructor . --cache-dir=${{ pair.key }}_${{ pair.value }}
         displayName: Running constructor
