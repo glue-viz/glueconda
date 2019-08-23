@@ -2,27 +2,35 @@ language: c
 
 sudo: false
 
-os:
-  - osx
+env:
+  global:
+    PKG=false
+
+matrix:
+  include:
+    - os: linux
+    - os: windows
+    - os: osx
+    - os: osx
+      env: PKG=true
 
 env:
   global:
-    - PYTHON_VERSION=3.7
+    - PYTHON_VERSION=3.6
 
 before_install:
   - git clone git://github.com/astropy/ci-helpers.git
   - source ci-helpers/travis/setup_conda.sh
-  - ./prepare_pkg.sh
+  - if [[ $PKG == true ]]; then ./prepare_pkg.sh; fi
 
 install:
   - source activate root
-  - conda install conda=4.6
-  - conda install constructor
-  - conda remove constructor
-  - pip install https://github.com/conda/constructor/archive/master.zip
+  - conda install constructor conda=4.6
   - pip install awscli
-
 
 script:
   - constructor .
-  - aws s3 cp --content-type application/vnd.apple.installer+xml glueconda-*.pkg s3://www.glueviz.org/glueconda/
+  - if [[ $TRAVIS_OS_NAME == linux ]]; then aws s3 cp --content-type application/x-sh glueconda-stable-Linux-x86_64.sh s3://www.glueviz.org/glueconda/; fi
+  - if [[ $TRAVIS_OS_NAME == windows ]]; thenaws s3 cp --content-type application/octet-stream glueconda-stable-Windows-x86_64.exe s3://www.glueviz.org/glueconda/; fi
+  - if [[ $TRAVIS_OS_NAME == osx && PKG == true]]; then aws s3 cp --content-type application/vnd.apple.installer+xml glueconda-*.pkg s3://www.glueviz.org/glueconda/; fi
+  - if [[ $TRAVIS_OS_NAME == osx && PKG == false]]; then aws s3 cp --content-type application/x-sh glueconda-stable-MacOSX-x86_64.sh s3://www.glueviz.org/glueconda/; fi
