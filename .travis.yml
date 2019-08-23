@@ -5,6 +5,7 @@ sudo: false
 env:
   global:
     PKG=false
+    MINICONDA_VERSION=4.6.14
 
 matrix:
   include:
@@ -25,7 +26,7 @@ before_install:
 
 install:
   - source activate root
-  - conda install constructor conda=4.6
+  - conda install constructor
   - pip install awscli
 
 script:
