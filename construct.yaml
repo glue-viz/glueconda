@@ -11,7 +11,7 @@ specs:
   - python 3.6*
   - conda
   - nomkl [not win]
-  - glueviz
+  - glueviz >=0.15.2
   - console_shortcut  [win]
   - menuinst  [win]
 
