@@ -44,5 +44,17 @@ jobs:
       - bash: conda install constructor=3
         displayName: Installing constructor v3
 
+      - ${{ if eq(pair.key, 'windows') }}:
+
+        - bash: |
+            conda uninstall pillow --force
+            pip install pillow
+          displayName: Patch pillow installation
+
+      - ${{ if eq(pair.key, 'macosx') }}:
+
+        - bash: rm -r $HOME/.conda
+          displayName: Clean conda configuration
+
       - bash: constructor .
         displayName: Running constructor
