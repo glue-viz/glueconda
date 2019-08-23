@@ -5,7 +5,7 @@ install_in_dependency_order: True
 
 channels:
  - http://conda.anaconda.org/glueviz
- - http://repo.continuum.io/pkgs/free
+ - http://repo.continuum.io/pkgs/main
 
 specs:
   - python 3.6*
