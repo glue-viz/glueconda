@@ -33,6 +33,9 @@ jobs:
         - powershell: Write-Host "##vso[task.prependpath]$env:CONDA\Scripts"
           displayName: Add conda to PATH
 
+      - bash: conda config --set always_yes yes --set changeps1 no
+        displayName: Configure conda
+
       - bash: conda install constructor=3
         displayName: Installing constructor v3
 
