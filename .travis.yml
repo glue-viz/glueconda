@@ -7,7 +7,7 @@ os:
 
 env:
   global:
-    - PYTHON_VERSION=3.6
+    - PYTHON_VERSION=3.7
 
 before_install:
   - git clone git://github.com/astropy/ci-helpers.git
@@ -16,6 +16,7 @@ before_install:
 
 install:
   - source activate root
+  - conda install conda=4.6
   - conda install constructor
   - conda remove constructor
   - pip install https://github.com/conda/constructor/archive/master.zip

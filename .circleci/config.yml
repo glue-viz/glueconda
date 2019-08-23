@@ -3,13 +3,16 @@ version: 2
 jobs:
   build:
     docker:
-      - image: continuumio/miniconda3
+      - image: continuumio/miniconda3:4.6.14
     steps:
       - checkout
       - run:
           name: Conda setup
           command: |
             conda config --set always_yes yes --set changeps1 no
+            conda install conda=4.6
+            conda install constructor
+            conda remove constructor
             pip install https://github.com/conda/constructor/archive/master.zip
             pip install awscli
       - run:
