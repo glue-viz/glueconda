@@ -56,5 +56,5 @@ jobs:
         - bash: rm -r $HOME/.conda
           displayName: Clean conda configuration
 
-      - bash: constructor .
+      - bash: constructor . --cache-dir=${{ pair.key }}_${{ pair.value }}
         displayName: Running constructor
